@@ -1,0 +1,22 @@
+{
+  "name": "@bookoo/extension",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bookoo/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.254",
+    "@types/node": "^20.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
