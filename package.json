@@ -10,22 +10,36 @@
     "dev": "turbo run dev --parallel",
     "dev:web": "turbo run dev --filter=web",
     "dev:api": "turbo run dev --filter=api",
+    "dev:extension": "turbo run dev --filter=extension",
     "build": "turbo run build",
+    "build:web": "turbo run build --filter=web",
+    "build:api": "turbo run build --filter=api",
+    "build:extension": "turbo run build --filter=extension",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "docker:api:build": "docker build -t bookoo-api -f apps/api/Dockerfile .",
+    "docker:api:run": "docker run --name bookoo-api -p 3005:3005 --env-file ./apps/api/.env bookoo-api",
+    "docker:api:stop": "docker stop bookoo-api && docker rm bookoo-api",
+    "docker:api:logs": "docker logs -f bookoo-api",
+    "docker:api": "yarn docker:api:stop || true && yarn docker:api:build && yarn docker:api:run",
+    "clean": "turbo run clean",
+    "reset": "rimraf .yarn/cache .yarn/install-state.gz node_modules */*/node_modules",
+    "setup": "yarn install",
+    "postinstall": "yarn workspace @bookoo/extension install"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "prettier": "^3.0.0",
-    "turbo": "^1.10.0",
-    "typescript": "^5.0.0"
+    "@types/node": "20.10.6",
+    "prettier": "3.1.1",
+    "rimraf": "5.0.5",
+    "turbo": "1.11.3",
+    "typescript": "5.3.3"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "yarn@4.0.2",
-  "dependencies": {
-    "sharp": "^0.33.5"
+  "packageManager": "yarn@3.6.4",
+  "resolutions": {
+    "typescript": "5.3.3"
   }
 }

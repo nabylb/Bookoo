@@ -3,22 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "node scripts/generate-icons.js",
-    "dev": "webpack --watch --mode development",
-    "build": "webpack --mode production",
-    "type-check": "tsc --noEmit"
+    "dev": "vite",
+    "build": "vite build",
+    "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
-    "@bookoo/shared": "workspace:*"
+    "@bookoo/shared": "*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.21",
     "@types/chrome": "^0.0.254",
-    "@types/node": "^20.0.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "sharp": "^0.32.6",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.0.0",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.0"
   }
 }
