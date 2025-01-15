@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookoo</title>
+  <style>
+    body {
+      width: 320px;
+      padding: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    .tags-input {
+      margin-top: 8px;
+    }
+
+    .status {
+      font-size: 14px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <select id="category">
+      <option value="">Select Category</option>
+    </select>
+
+    <div class="tags-input">
+      <input type="text" id="tags" placeholder="Add tags (comma separated)">
+    </div>
+
+    <button id="saveButton">Save to Bookoo</button>
+    
+    <div id="status" class="status"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-// content.ts
 interface PageMetadata {
   title: string;
   url: string;
@@ -46,6 +45,7 @@ class PageCapture {
   }
 
   private static getMainContent(): string {
+    // Try to get the main content using common selectors
     const contentSelectors = [
       'article',
       '[role="main"]',
@@ -61,6 +61,7 @@ class PageCapture {
       }
     }
 
+    // Fallback to body content
     return document.body.textContent || '';
   }
 }

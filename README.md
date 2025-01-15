@@ -29,7 +29,7 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
 ### Prerequisites
 
 - Node.js 18+
-- pnpm (recommended) or npm
+- yarn (recommended) or npm
 - MongoDB
 - Docker (for deployment)
 
@@ -43,7 +43,7 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
 
 2. Install dependencies:
    ```bash
-   pnpm install
+   yarn install
    ```
 
 3. Set up environment variables:
@@ -63,7 +63,7 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
 4. Start development servers:
    ```bash
    # From root directory
-   pnpm dev
+   yarn dev
    ```
 
 ### Setting up the Chrome Extension
@@ -71,7 +71,7 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
 1. Build the extension:
    ```bash
    cd apps/extension
-   pnpm build
+   yarn build
    ```
 
 2. Load in Chrome:
@@ -82,26 +82,105 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
 
 ## 🔧 Environment Variables
 
+### Setting Up Environment Variables
+
+#### NextAuth Secret
+```bash
+# Generate a random string for NEXTAUTH_SECRET
+openssl rand -base64 32
+# or
+node -e "console.log(crypto.randomBytes(32).toString('base64'))"
+```
+
+#### Google OAuth Credentials
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
+2. Create a new project or select an existing one
+3. Go to "APIs & Services" > "Credentials"
+4. Click "Create Credentials" > "OAuth client ID"
+
+5. Select "Web application"
+6. Add authorized redirect URIs:
+   - Development: `http://localhost:3000/api/auth/callback/google`
+   - Production: `https://your-domain.com/api/auth/callback/google`
+7. Copy the generated Client ID and Client Secret
+
+Variables:
+- `GOOGLE_CLIENT_ID`: Your Google OAuth client ID
+- `GOOGLE_CLIENT_SECRET`: Your Google OAuth client secret
+
+#### MongoDB Setup
+1. Local Development:
+   - Install MongoDB locally
+   - Use connection string: `mongodb://localhost:27017/bookoo`
+
+2. Production (MongoDB Atlas):
+   - Go to [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Create a new cluster (free tier available)
+   - Click "Connect" and choose "Connect your application"
+   - Copy the connection string
+   - Replace <password> with your database user password
+
+Variable:
+- `DATABASE_URL`: Your MongoDB connection string
+
+#### JWT Secret
+```bash
+# Generate a secure random string for JWT_SECRET
+openssl rand -base64 32
+# or
+node -e "console.log(crypto.randomBytes(32).toString('base64'))"
+```
+
+#### OpenAI API Key (for summarization)
+1. Go to [OpenAI API Keys](https://platform.openai.com/api-keys)
+2. Create an account if you don't have one
+3. Create a new API key
+4. Copy the key (it starts with "sk-")
+
+Variable:
+- `OPENAI_API_KEY`: Your OpenAI API key
+
 ### Frontend (.env.local)
 ```bash
+# API URLs (development)
 NEXT_PUBLIC_API_URL=http://localhost:3001
 NEXT_PUBLIC_WS_URL=ws://localhost:3002
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-nextauth-secret
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# NextAuth Configuration
+NEXTAUTH_URL=http://localhost:3000                  # Development
+NEXTAUTH_URL=https://your-domain.com               # Production
+NEXTAUTH_SECRET=your-generated-nextauth-secret     # From step above
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id             # From Google Cloud Console
+GOOGLE_CLIENT_SECRET=your-google-client-secret     # From Google Cloud Console
 ```
 
 ### Backend (.env)
 ```bash
+# Server Configuration
 PORT=3001
-NODE_ENV=development
-JWT_SECRET=your-jwt-secret
-DATABASE_URL=mongodb://localhost:27017/bookoo
-CORS_ORIGINS=http://localhost:3000
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-OPENAI_API_KEY=your-openai-api-key
+NODE_ENV=development                               # or 'production'
+
+# Security
+JWT_SECRET=your-generated-jwt-secret              # From step above
+
+# Database
+DATABASE_URL=mongodb://localhost:27017/bookoo      # Local MongoDB
+# or
+DATABASE_URL=mongodb+srv://...                    # MongoDB Atlas URL
+
+# CORS (add your frontend URL)
+CORS_ORIGINS=http://localhost:3000                # Development
+# or
+CORS_ORIGINS=https://your-domain.com             # Production
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id           # Same as frontend
+GOOGLE_CLIENT_SECRET=your-google-client-secret   # Same as frontend
+
+# OpenAI
+OPENAI_API_KEY=your-openai-api-key              # From OpenAI
 ```
 
 ## 🌐 API Routes
@@ -148,7 +227,7 @@ OPENAI_API_KEY=your-openai-api-key
 1. Build for production:
    ```bash
    cd apps/extension
-   pnpm build
+   yarn build
    ```
 
 2. Create ZIP file:
@@ -175,11 +254,11 @@ OPENAI_API_KEY=your-openai-api-key
 ## 🧪 Running Tests
 ```bash
 # Run all tests
-pnpm test
+yarn test
 
 # Run specific project tests
-pnpm --filter @bookoo/web test
-pnpm --filter @bookoo/api test
+yarn workspace @bookoo/web test
+yarn workspace @bookoo/api test
 ```
 
 ## 🤝 Contributing

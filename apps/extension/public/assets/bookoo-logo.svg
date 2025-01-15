@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="248" fill="#3b82f6"/>
+  <circle cx="256" cy="256" r="230" fill="white"/>
+
+  <!-- Book Base -->
+  <path d="M146 136c0-13.25 10.75-24 24-24h172c13.25 0 24 10.75 24 24v240c0 13.25-10.75 24-24 24H170c-13.25 0-24-10.75-24-24V136z" fill="#3b82f6"/>
+
+  <!-- Pages -->
+  <path d="M170 124h172v252H170V124z" fill="white"/>
+
+  <!-- Bookmark -->
+  <path d="M256 124v252l-43-32-43 32V124h86z" fill="#ef4444"/>
+  <path d="M256 124v252l43-32 43 32V124h-86z" fill="#f87171"/>
+
+  <!-- Page Lines -->
+  <rect x="200" y="164" width="112" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="200" y="188" width="112" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="200" y="212" width="112" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="200" y="236" width="80" height="4" rx="2" fill="#e5e7eb"/>
+
+  <!-- Text "BOO" -->
+  <path d="M200 290h16c8.8 0 16 7.2 16 16s-7.2 16-16 16h-16v-32z" fill="#3b82f6"/>
+  <path d="M240 290h16c8.8 0 16 7.2 16 16s-7.2 16-16 16h-16v-32z" fill="#3b82f6"/>
+  <path d="M280 290h16c8.8 0 16 7.2 16 16s-7.2 16-16 16h-16v-32z" fill="#3b82f6"/>
+</svg>

@@ -7,7 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --parallel",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:api": "turbo run dev --filter=api",
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
@@ -22,5 +24,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "pnpm@8.0.0"
+  "packageManager": "yarn@4.0.2",
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
 }
