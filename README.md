@@ -29,11 +29,11 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
 ### Prerequisites
 
 - Node.js 18+
-- yarn (recommended) or npm
+- Yarn 3.6.4 (will be installed automatically)
 - MongoDB
-- Docker (for deployment)
+- Docker (for API)
 
-### Installation
+### Initial Setup
 
 1. Clone the repository:
    ```bash
@@ -41,44 +41,152 @@ Bookoo is a modern web bookmarking platform that helps you organize your online 
    cd Bookoo
    ```
 
-2. Install dependencies:
+2. Set up Yarn and install dependencies:
    ```bash
+   # Enable corepack for Yarn version management
+   corepack enable
+
+   # Set Yarn version
+   yarn set version 3.6.4
+
+   # Install dependencies
    yarn install
    ```
 
-3. Set up environment variables:
+### Running the Backend (API)
+
+1. Set up environment variables:
    ```bash
-   # Root directory
-   cp .env.example .env
+   # Copy the example env file
+   cp apps/api/.env.example apps/api/.env
 
-   # Frontend
-   cd apps/web
-   cp .env.example .env.local
-
-   # Backend
-   cd ../api
-   cp .env.example .env
+   # Edit the .env file with your values
+   # Required variables:
+   # - DATABASE_URL=mongodb://localhost:27017/bookoo
+   # - JWT_SECRET=your-jwt-secret
+   # - GOOGLE_CLIENT_ID=your-google-client-id
+   # - GOOGLE_CLIENT_SECRET=your-google-client-secret
    ```
 
-4. Start development servers:
+2. Run the API using Docker:
    ```bash
-   # From root directory
-   yarn dev
+   # Build the Docker image
+   yarn docker:api:build
+
+   # Run the container
+   yarn docker:api:run
+
+   # Or run both commands in sequence
+   yarn docker:api
    ```
+
+   The API will be available at `http://localhost:3005`
+
+### Running the Frontend (Web)
+
+1. Set up environment variables:
+   ```bash
+   # Copy the example env file
+   cp apps/web/.env.example apps/web/.env.local
+
+   # Edit .env.local with your values
+   # Required variables:
+   # - NEXT_PUBLIC_API_URL=http://localhost:3005
+   # - NEXTAUTH_URL=http://localhost:3000
+   # - NEXTAUTH_SECRET=your-nextauth-secret
+   # - GOOGLE_CLIENT_ID=your-google-client-id
+   # - GOOGLE_CLIENT_SECRET=your-google-client-secret
+   ```
+
+2. Start the development server:
+   ```bash
+   yarn dev:web
+   ```
+
+   The web app will be available at `http://localhost:3000`
 
 ### Setting up the Chrome Extension
 
-1. Build the extension:
+1. Set up environment variables:
    ```bash
-   cd apps/extension
-   yarn build
+   # Copy the example env file
+   cp apps/extension/.env.example apps/extension/.env
+
+   # Edit .env with your values
+   # Required variables:
+   # - VITE_API_URL=http://localhost:3005
    ```
 
-2. Load in Chrome:
-   - Open Chrome and go to `chrome://extensions/`
-   - Enable "Developer mode"
-   - Click "Load unpacked"
+2. Build the extension:
+   ```bash
+   # Build the extension
+   yarn build:extension
+   ```
+
+3. Load in Chrome:
+   - Open Chrome and navigate to `chrome://extensions/`
+   - Enable "Developer mode" in the top right
+   - Click "Load unpacked" in the top left
    - Select the `apps/extension/dist` directory
+
+The extension should now appear in your Chrome toolbar.
+
+### Development Workflow
+
+- Run all services in development mode:
+  ```bash
+  yarn dev
+  ```
+
+- Run individual services:
+  ```bash
+  # API (without Docker)
+  yarn dev:api
+
+  # Web app
+  yarn dev:web
+
+  # Extension
+  yarn dev:extension
+  ```
+
+### Troubleshooting
+
+If you encounter any issues:
+
+1. Clean the project:
+   ```bash
+   # Clean all build outputs and node_modules
+   yarn clean
+
+   # Reset Yarn cache and node_modules
+   yarn reset
+
+   # Reinstall dependencies
+   yarn install
+   ```
+
+2. Verify Docker is running:
+   ```bash
+   docker ps
+   ```
+
+3. Check logs:
+   ```bash
+   # API logs
+   docker logs bookoo-api
+
+   # Web logs
+   yarn dev:web
+
+   # Extension build logs
+   yarn build:extension
+   ```
+
+4. Common issues:
+   - Port 3005 already in use: Stop other services or change the port in `apps/api/.env`
+   - MongoDB connection issues: Ensure MongoDB is running and the connection string is correct
+   - Extension not loading: Make sure you've built it and selected the correct directory
 
 ## 🔧 Environment Variables
 
