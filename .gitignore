@@ -1,5 +1,5 @@
 # Yarn Berry
-.yarn
+.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -30,4 +30,22 @@ build
 
 # turbo
 .turbo
+
+# Testing
+coverage
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local files
+*.local
+
+# Chrome Extension
+*.crx
+*.pem
+
+# Prisma
+prisma/*.db
 
